@@ -2,10 +2,16 @@ package com.syndesi.apolloApi.model;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Jovem {
@@ -24,6 +30,9 @@ public class Jovem {
     @NotNull
     @Size(min = 9, message = "A senha deve ter pelo menos 9 caracteres")
     private String senha;
+
+    @OneToMany(mappedBy = "jovem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Curriculo> curriculos;
 
     public Jovem(){
 
@@ -61,6 +70,11 @@ public class Jovem {
         this.senha = senha;
     }
 
+    public List<Curriculo> getCurriculos() {
+        return curriculos;
+    }
 
-
+    public void setCurriculos(List<Curriculo> curriculos) {
+        this.curriculos = curriculos;
+    }
 }
