@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.syndesi.apolloApi.model.Curriculo;
+import com.syndesi.apolloApi.model.Jovem;
 import com.syndesi.apolloApi.repository.JovemRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-
-import com.syndesi.apolloApi.model.Jovem;
 
 @Service
 public class JovemService {
@@ -26,6 +26,10 @@ public class JovemService {
     }
 
     public Jovem criar(Jovem jovem){
+        List<Curriculo> curriculos = jovem.getCurriculos();
+        for(Curriculo curriculo : curriculos){
+            curriculo.setJovem(jovem);
+        }
         return jovemRepository.save(jovem);
     }
 
@@ -46,6 +50,5 @@ public class JovemService {
             throw new IllegalArgumentException("Jovem não encontrado");
         }
         jovemRepository.deleteById(id);
-    }
-         
+    }  
 }

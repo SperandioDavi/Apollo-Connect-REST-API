@@ -2,13 +2,16 @@ package com.syndesi.apolloApi.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Curriculo {
@@ -16,15 +19,22 @@ public class Curriculo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String nivelEscolaridade;
     
+    @ElementCollection
     private List<String> habilidadesProfissionais;
+
+    @ElementCollection
     private List<String> habilidadesInterpessoais;
+    
     private String informacoesAdicionais;
+
+    @ElementCollection
     private List<String> certificados;
     
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "jovem_id")
     private Jovem jovem; 
 
