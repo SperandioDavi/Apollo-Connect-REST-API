@@ -39,9 +39,14 @@ public class JovemService {
 
         // Atualiza os campos do jovem existente
         jovemExistente.setNome(jovemAtualizado.getNome());
+        jovemExistente.setEmail(jovemAtualizado.getEmail());
         jovemExistente.setSenha(jovemAtualizado.getSenha());
         jovemExistente.setCpf(jovemAtualizado.getCpf());
-
+        jovemExistente.setEndereco(jovemAtualizado.getEndereco());
+        jovemExistente.setTelefone(jovemAtualizado.getTelefone());
+        jovemExistente.setDataNascimento(jovemAtualizado.getDataNascimento());
+        jovemExistente.setCurriculos(jovemAtualizado.getCurriculos());
+        
         return jovemRepository.save(jovemExistente);
     }
 

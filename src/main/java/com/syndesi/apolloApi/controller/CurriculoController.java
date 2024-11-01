@@ -3,7 +3,9 @@ package com.syndesi.apolloApi.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.syndesi.apolloApi.model.Curriculo;
+import com.syndesi.apolloApi.model.Jovem;
 import com.syndesi.apolloApi.service.CurriculoService;
+import com.syndesi.apolloApi.service.JovemService;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -29,6 +31,9 @@ public class CurriculoController {
     @Autowired
     private CurriculoService curriculoService;
 
+    @Autowired
+    private JovemService jovemService;
+
     @GetMapping
     public List<Curriculo> listarTodos(){
         return curriculoService.listarTodos();
@@ -44,8 +49,10 @@ public class CurriculoController {
         return curriculoService.listarCurriculosDoJovem(idJovem);
     }
     
-    @PostMapping
-    public Curriculo criar(@Valid @RequestBody Curriculo curriculo) {
+    @PostMapping("/{idJovem}")
+    public Curriculo criar(@Valid @RequestBody Curriculo curriculo, @PathVariable("idJovem") Long idJovem) {
+        Jovem jovem = jovemService.buscarPorId(idJovem);
+        curriculo.setJovem(jovem);
         return curriculoService.criar(curriculo);
     }
 
