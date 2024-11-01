@@ -1,8 +1,5 @@
 package com.syndesi.apolloApi.model;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -12,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Jovem {
@@ -19,19 +18,19 @@ public class Jovem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotNull
+    @NotBlank
     @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
     private String nome;
     
-    @NotNull
+    @NotBlank
     @Size(min = 11, max = 11,  message = "O CPF deve ter 11 caracteres")
     private String cpf;
 
-    @NotNull
+    @NotBlank
     @Size(min = 9, message = "A senha deve ter pelo menos 9 caracteres")
     private String senha;
 
-    @OneToMany(mappedBy = "jovem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jovem", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Curriculo> curriculos;
 
     public Jovem(){
