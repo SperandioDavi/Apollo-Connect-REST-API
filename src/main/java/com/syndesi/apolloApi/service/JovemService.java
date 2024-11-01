@@ -10,8 +10,10 @@ import com.syndesi.apolloApi.model.Jovem;
 import com.syndesi.apolloApi.repository.JovemRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class JovemService {
     
     @Autowired
@@ -45,7 +47,9 @@ public class JovemService {
         jovemExistente.setEndereco(jovemAtualizado.getEndereco());
         jovemExistente.setTelefone(jovemAtualizado.getTelefone());
         jovemExistente.setDataNascimento(jovemAtualizado.getDataNascimento());
-        jovemExistente.setCurriculos(jovemAtualizado.getCurriculos());
+        
+        jovemExistente.getCurriculos().clear();
+        jovemExistente.getCurriculos().addAll(jovemAtualizado.getCurriculos());
         
         return jovemRepository.save(jovemExistente);
     }

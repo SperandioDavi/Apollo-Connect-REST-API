@@ -10,9 +10,11 @@ import com.syndesi.apolloApi.model.Jovem;
 import com.syndesi.apolloApi.repository.CurriculoRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Service
+@Transactional
 public class CurriculoService {
     @Autowired
     private CurriculoRepository curriculoRepository;
