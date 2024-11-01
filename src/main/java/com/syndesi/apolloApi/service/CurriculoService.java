@@ -17,7 +17,16 @@ public class CurriculoService {
     @Autowired
     private CurriculoRepository curriculoRepository;
 
+    @Autowired
     private JovemService jovemService;
+
+    public List<Curriculo> listarTodos(){
+        return curriculoRepository.findAll();
+    }
+
+    public Curriculo buscarPorId(Long id){
+        return curriculoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Currículo não encontrado"));
+    }
 
     public List<Curriculo> listarCurriculosDoJovem(Long id){
         Jovem jovem = jovemService.buscarPorId(id);
@@ -36,6 +45,8 @@ public class CurriculoService {
         curriculoExistente.setHabilidadesInterpessoais(curriculoAtualizado.getHabilidadesInterpessoais());
         curriculoExistente.setInformacoesAdicionais(curriculoAtualizado.getInformacoesAdicionais());
         curriculoExistente.setCertificados(curriculoAtualizado.getCertificados());
+        curriculoRepository.save(curriculoExistente);
+
         return curriculoExistente;
     }
 

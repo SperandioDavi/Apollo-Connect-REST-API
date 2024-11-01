@@ -29,15 +29,24 @@ public class CurriculoController {
     @Autowired
     private CurriculoService curriculoService;
 
-    @GetMapping("/{idJovem}")
-    public List<Curriculo> listarCurriculosDoJovem(@PathVariable Long idJovem) {
+    @GetMapping
+    public List<Curriculo> listarTodos(){
+        return curriculoService.listarTodos();
+    }
+    
+    @GetMapping("/{id}")
+    public Curriculo buscarPorId(@PathVariable Long id){
+        return curriculoService.buscarPorId(id);
+    }
+
+    @GetMapping("/jovens/{idJovem}")
+    public List<Curriculo> listarCurriculosDoJovem(@PathVariable("idJovem") Long idJovem) {
         return curriculoService.listarCurriculosDoJovem(idJovem);
     }
     
     @PostMapping
     public Curriculo criar(@Valid @RequestBody Curriculo curriculo) {
-        Curriculo novoCurriculo = curriculoService.criar(curriculo);
-        return novoCurriculo;
+        return curriculoService.criar(curriculo);
     }
 
     @PutMapping("/{id}")
@@ -57,5 +66,5 @@ public class CurriculoController {
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id){
         curriculoService.deletar(id);
-    } 
+    }
 }
