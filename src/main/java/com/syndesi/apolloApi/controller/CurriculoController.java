@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/curriculos")
 public class CurriculoController {
     @Autowired

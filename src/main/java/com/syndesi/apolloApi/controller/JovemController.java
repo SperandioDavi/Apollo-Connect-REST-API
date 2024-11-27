@@ -24,7 +24,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/jovens")
 public class JovemController {
     @Autowired
